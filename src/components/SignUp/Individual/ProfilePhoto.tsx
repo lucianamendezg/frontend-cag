@@ -128,13 +128,15 @@ const ProfilePhoto: React.FC<{
                 />
               </Form.Group>
               <div>
-                <Button
-                  disabled={uploadInProgress || !file}
-                  onClick={uploadFile}
-                  text="Upload File"
-                  type="button"
-                  variant="secondary"
-                />
+                {file && (
+                  <Button
+                    disabled={uploadInProgress || !file}
+                    onClick={uploadFile}
+                    text="Upload File"
+                    type="button"
+                    variant="secondary"
+                  />
+                )}
               </div>
               {uploadInProgress && <p>Upload progress: {percent}%</p>}
             </ButtonCol>
