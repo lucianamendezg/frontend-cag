@@ -8,15 +8,26 @@ const SpecialSkills = (skills_checkboxes: any, skills_manual: any) => {
   const secondary_skills = skills_checkboxes['skills_manual'];
   const all_skills = primary_skills.concat(secondary_skills);
   return (
-    <div>
+    <Flex>
       {all_skills.length > 0 &&
         all_skills.map((skill: string) => (
-          <Badge pill bg="primary" key={`skills-primary-${skill}`} text="white">
-            {skill}
-          </Badge>
+          <SkillBadge key={`skills-primary-${skill}`}>{skill}</SkillBadge>
         ))}
-    </div>
+    </Flex>
   );
 };
+
+const SkillBadge = styled.div`
+  color: ${colors.white};
+  background-color: ${colors.orange};
+  padding: 10px 15px 10px 15px;
+  text-align: center;
+  border-radius: 20px;
+  margin-left: 10px;
+`;
+
+const Flex = styled.div`
+  display: flex;
+`;
 
 export default SpecialSkills;
