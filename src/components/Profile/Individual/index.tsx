@@ -809,6 +809,7 @@ const IndividualProfile: React.FC<{
           </PreviewCard>
         </Row>
       )}
+
       <Row>
         <Col lg={12}>
           <Title>YOUR PROFILE</Title>
@@ -940,131 +941,131 @@ const IndividualProfile: React.FC<{
           </DetailsCard>
         </Col>
         <Col lg={8}>
-          <div>
-            <a
-              href="#"
-              onClick={(e: React.MouseEvent<HTMLElement>) =>
-                onEditModeClick(e, 'headline', !editMode['headline'])
-              }
-            >
-              <FontAwesomeIcon
-                icon={editMode['headline'] ? faXmark : faPenToSquare}
-              />
-            </a>
-            {editMode['headline'] ? (
-              <div>
-                <CAGLabel>Edit Profile</CAGLabel>
-                <InputField
-                  label="First"
-                  name="basicsFirstName"
-                  onChange={(e: any) =>
-                    setAccountForm('first_name', e.target.value)
-                  }
-                  required={true}
-                  requiredLabel="First name"
-                  value={editAccount?.first_name}
-                />
-                <InputField
-                  label="Last"
-                  name="basicsLastName"
-                  onChange={(e: any) =>
-                    setAccountForm('last_name', e.target.value)
-                  }
-                  required={true}
-                  requiredLabel="Last name"
-                  value={editAccount?.last_name}
-                />
-                <Form.Group className="form-group">
+          <HeaderNamePronouns>
+            <h2>
+              {account?.data.first_name} {account?.data.last_name}
+            </h2>
+            <p>{profile?.data?.pronouns || profile?.data?.pronouns_other}</p>
+          </HeaderNamePronouns>
+          <a
+            href="#"
+            onClick={(e: React.MouseEvent<HTMLElement>) =>
+              onEditModeClick(e, 'headline', !editMode['headline'])
+            }
+          >
+            <FontAwesomeIcon
+              icon={editMode['headline'] ? faXmark : faPenToSquare}
+            />
+          </a>
+          <DetailSection title="Bio">
+            <div>
+              {editMode['headline'] ? (
+                <div>
+                  <CAGLabel>Edit Profile</CAGLabel>
+                  <InputField
+                    label="First"
+                    name="basicsFirstName"
+                    onChange={(e: any) =>
+                      setAccountForm('first_name', e.target.value)
+                    }
+                    required={true}
+                    requiredLabel="First name"
+                    value={editAccount?.first_name}
+                  />
+                  <InputField
+                    label="Last"
+                    name="basicsLastName"
+                    onChange={(e: any) =>
+                      setAccountForm('last_name', e.target.value)
+                    }
+                    required={true}
+                    requiredLabel="Last name"
+                    value={editAccount?.last_name}
+                  />
+                  <Form.Group className="form-group">
+                    <Container>
+                      <Row>
+                        <PaddedCol lg="6">
+                          <CAGLabel>Pronouns</CAGLabel>
+                          <Form.Control
+                            aria-label="pronouns"
+                            as="select"
+                            defaultValue={editProfile?.pronouns}
+                            name="actorInfo1Pronouns"
+                            onChange={(e: any) =>
+                              setProfileForm('pronouns', e.target.value)
+                            }
+                          >
+                            <option value={undefined}>Choose...</option>
+                            {pronouns.map((noun) => (
+                              <option key={`option-value-${noun}`} value={noun}>
+                                {noun}
+                              </option>
+                            ))}
+                          </Form.Control>
+                        </PaddedCol>
+                        <PaddedCol lg="6">
+                          <CAGLabel>Other</CAGLabel>
+                          <Form.Control
+                            aria-label="pronouns"
+                            defaultValue={editProfile?.pronouns_other}
+                            disabled={false}
+                            name="actorInfo1PronounsOther"
+                            onChange={(e: any) =>
+                              setProfileForm('pronouns_other', e.target.value)
+                            }
+                          />
+                        </PaddedCol>
+                      </Row>
+                    </Container>
+                  </Form.Group>
+                  <CAGLabel>Profile Headline &amp; Personal Bio</CAGLabel>
                   <Container>
                     <Row>
-                      <PaddedCol lg="6">
-                        <CAGLabel>Pronouns</CAGLabel>
-                        <Form.Control
-                          aria-label="pronouns"
-                          as="select"
-                          defaultValue={editProfile?.pronouns}
-                          name="actorInfo1Pronouns"
-                          onChange={(e: any) =>
-                            setProfileForm('pronouns', e.target.value)
-                          }
-                        >
-                          <option value={undefined}>Choose...</option>
-                          {pronouns.map((noun) => (
-                            <option key={`option-value-${noun}`} value={noun}>
-                              {noun}
-                            </option>
-                          ))}
-                        </Form.Control>
-                      </PaddedCol>
-                      <PaddedCol lg="6">
-                        <CAGLabel>Other</CAGLabel>
-                        <Form.Control
-                          aria-label="pronouns"
-                          defaultValue={editProfile?.pronouns_other}
-                          disabled={false}
-                          name="actorInfo1PronounsOther"
-                          onChange={(e: any) =>
-                            setProfileForm('pronouns_other', e.target.value)
-                          }
-                        />
+                      <PaddedCol lg="10">
+                        <Form.Group className="form-group">
+                          <CAGFormControl
+                            aria-label="bio headline"
+                            defaultValue={editProfile?.profile_tagline}
+                            name="demographicsBioHeadline"
+                            onChange={(e: any) =>
+                              setProfileForm('profile_tagline', e.target.value)
+                            }
+                            placeholder="Profile Headline (ex: Actor, Musician, Dancer)"
+                          />
+                        </Form.Group>
+                        <Form.Group className="form-group">
+                          <Form.Control
+                            as="textarea"
+                            defaultValue={editProfile?.bio}
+                            name="demographicsBio"
+                            onChange={(e: any) =>
+                              setProfileForm('bio', e.target.value)
+                            }
+                            rows={5}
+                          />
+                        </Form.Group>
                       </PaddedCol>
                     </Row>
                   </Container>
-                </Form.Group>
-                <CAGLabel>Profile Headline &amp; Personal Bio</CAGLabel>
-                <Container>
-                  <Row>
-                    <PaddedCol lg="10">
-                      <Form.Group className="form-group">
-                        <CAGFormControl
-                          aria-label="bio headline"
-                          defaultValue={editProfile?.profile_tagline}
-                          name="demographicsBioHeadline"
-                          onChange={(e: any) =>
-                            setProfileForm('profile_tagline', e.target.value)
-                          }
-                          placeholder="Profile Headline (ex: Actor, Musician, Dancer)"
-                        />
-                      </Form.Group>
-                      <Form.Group className="form-group">
-                        <Form.Control
-                          as="textarea"
-                          defaultValue={editProfile?.bio}
-                          name="demographicsBio"
-                          onChange={(e: any) =>
-                            setProfileForm('bio', e.target.value)
-                          }
-                          rows={5}
-                        />
-                      </Form.Group>
-                    </PaddedCol>
-                  </Row>
-                </Container>
-                <Button
-                  onClick={updateHeadlineProfile}
-                  text="Save"
-                  type="button"
-                  variant="primary"
-                />
-              </div>
-            ) : (
-              <>
-                <HeaderNamePronouns>
-                  <h2>
-                    {account?.data.first_name} {account?.data.last_name}
-                  </h2>
-                  <p>
-                    {profile?.data?.pronouns || profile?.data?.pronouns_other}
-                  </p>
-                </HeaderNamePronouns>
-                {profile?.data?.profile_tagline && (
-                  <h3>{profile?.data?.profile_tagline}</h3>
-                )}
-                {profile?.data?.bio && <p>{profile?.data?.bio}</p>}
-              </>
-            )}
-          </div>
-          <hr />
+                  <Button
+                    onClick={updateHeadlineProfile}
+                    text="Save"
+                    type="button"
+                    variant="primary"
+                  />
+                </div>
+              ) : (
+                <>
+                  {profile?.data?.profile_tagline && (
+                    <h3>{profile?.data?.profile_tagline}</h3>
+                  )}
+                  {profile?.data?.bio && <p>{profile?.data?.bio}</p>}
+                </>
+              )}
+            </div>
+          </DetailSection>
+
           <div>
             {editMode['training'] ? (
               <Container>
@@ -1324,7 +1325,6 @@ const IndividualProfile: React.FC<{
                 </a>
               </>
             )}
-            <hr />
             {editMode['upcoming'] ? (
               <Container>
                 {editProfile?.upcoming_performances?.map(
@@ -1512,7 +1512,6 @@ const IndividualProfile: React.FC<{
                 </a>
               </>
             )}
-            <hr />
             {editMode['past'] ? (
               <Container>
                 {editProfile?.past_performances?.map(
@@ -1713,7 +1712,6 @@ const IndividualProfile: React.FC<{
                 </a>
               </>
             )}
-            <hr />
             {editMode['skills'] ? (
               <Container>
                 <Row>
@@ -1831,7 +1829,6 @@ const IndividualProfile: React.FC<{
                 </a>
               </>
             )}
-            <hr />
             {editMode['awards'] ? (
               <Container>
                 {editProfile?.awards?.map((awardRow: any, i: any) => (
