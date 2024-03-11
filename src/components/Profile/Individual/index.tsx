@@ -54,6 +54,7 @@ import { PreviewCard } from '../shared/styles';
 import { CAGFormSelect } from '../../SignUp/SignUpStyles';
 import EditPersonalDetails from './EditPersonalDetails';
 import SpecialSkills from './ProfileSections/SpecialSkills';
+import Awards from './ProfileSections/Awards';
 
 type PerformanceState = {
   [key: number]: string | number | null | boolean;
@@ -1839,6 +1840,12 @@ const IndividualProfile: React.FC<{
                 </a>
               </>
             )}
+            {/* AWARD SECTION */}
+            <DetailSection title="Awards & Recognition" section="awards">
+              <Awards awards={profile?.data?.awards} />
+            </DetailSection>
+
+            {/*
             {editMode['awards'] ? (
               <Container>
                 {editProfile?.awards?.map((awardRow: any, i: any) => (
@@ -1950,6 +1957,7 @@ const IndividualProfile: React.FC<{
                     </ProfileFlex>
                   </Col>
                 </Row>
+              
               </Container>
             ) : (
               <>
@@ -1975,6 +1983,7 @@ const IndividualProfile: React.FC<{
                 </a>
               </>
             )}
+            */}
           </div>
         </Col>
       </Row>

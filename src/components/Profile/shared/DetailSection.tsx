@@ -1,20 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { fonts, colors } from '../../../theme/styleVars';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { hasNonEmptyValues } from '../../../utils/hasNonEmptyValues';
 
 const DetailSection: React.FC<{
   title: string;
   section: string;
   children: React.ReactNode;
 }> = ({ title, section, children }) => {
+  const [editMode, setEditMode] = useState(false);
+
+  const editFunction = () => {
+    setEditMode(!editMode);
+  };
+
   return (
     <DetailsSection>
       <TitleSection>
         <DetailSectionTitle>{title}</DetailSectionTitle>
-        <a href="#" onClick={() => console.log(section)}>
-          <FontAwesomeIcon icon={faPenToSquare} color={colors.darkGreen} />
+        <a href="#!" onClick={() => editFunction()}>
+          <FontAwesomeIcon
+            icon={editMode ? faXmark : faPenToSquare}
+            color={colors.darkGreen}
+          />
         </a>
       </TitleSection>
       <TitleUnderline />
