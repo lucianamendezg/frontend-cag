@@ -4,16 +4,18 @@ import { fonts, colors } from '../../../theme/styleVars';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
-const DetailSection: React.FC<{ title: string; children: React.ReactNode }> = ({
-  title,
-  children
-}) => {
+const DetailSection: React.FC<{
+  title: string;
+  section: string;
+  children: React.ReactNode;
+}> = ({ title, section, children }) => {
   return (
     <DetailsSection>
-      {/*Title Section*/}
       <TitleSection>
         <DetailSectionTitle>{title}</DetailSectionTitle>
-        <FontAwesomeIcon icon={faPenToSquare} />
+        <a href="#" onClick={() => console.log(section)}>
+          <FontAwesomeIcon icon={faPenToSquare} color={colors.darkGreen} />
+        </a>
       </TitleSection>
       <TitleUnderline />
       {children}

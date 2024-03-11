@@ -53,6 +53,7 @@ import ImageUploadModal from '../shared/ImageUploadModal';
 import { PreviewCard } from '../shared/styles';
 import { CAGFormSelect } from '../../SignUp/SignUpStyles';
 import EditPersonalDetails from './EditPersonalDetails';
+import SpecialSkills from './ProfileSections/SpecialSkills';
 
 type PerformanceState = {
   [key: number]: string | number | null | boolean;
@@ -957,7 +958,7 @@ const IndividualProfile: React.FC<{
               icon={editMode['headline'] ? faXmark : faPenToSquare}
             />
           </a>
-          <DetailSection title="Bio">
+          <DetailSection title="Bio" section="headline">
             <div>
               {editMode['headline'] ? (
                 <div>
@@ -1282,7 +1283,7 @@ const IndividualProfile: React.FC<{
             ) : (
               <>
                 {hasNonEmptyValues(profile?.data?.training_institutions) ? (
-                  <DetailSection title="Training">
+                  <DetailSection title="Training" section="training">
                     {profile?.data?.training_institutions.map(
                       (training: TrainingInstitution) => (
                         <p>
@@ -1299,7 +1300,7 @@ const IndividualProfile: React.FC<{
                   </DetailSection>
                 ) : profile?.data?.training_institution &&
                   profile?.data?.training_institution !== '' ? (
-                  <DetailSection title="Training">
+                  <DetailSection title="Training" section="training">
                     {/* need to support the old single training value profiles - will only update once they edit */}
                     <p>
                       <strong>{profile?.data.training_institution}</strong>
@@ -1491,7 +1492,7 @@ const IndividualProfile: React.FC<{
             ) : (
               <>
                 {hasNonEmptyValues(profile?.data?.upcoming_performances) && (
-                  <DetailSection title="Upcoming Features">
+                  <DetailSection title="Upcoming Features" section="upcoming">
                     {profile?.data?.upcoming_performances.map(
                       (perf: UpcomingPerformances) => (
                         <IndividualUpcomingShow
@@ -1691,7 +1692,7 @@ const IndividualProfile: React.FC<{
             ) : (
               <>
                 {hasNonEmptyValues(profile?.data?.past_performances) && (
-                  <DetailSection title="Past Performances">
+                  <DetailSection title="Past Performances" section="past">
                     {profile?.data?.past_performances.map(
                       (perf: PastPerformances) => (
                         <IndividualCredits
@@ -1712,6 +1713,7 @@ const IndividualProfile: React.FC<{
                 </a>
               </>
             )}
+            {/*SKILLS EDIT HERE*/}
             {editMode['skills'] ? (
               <Container>
                 <Row>
@@ -1787,8 +1789,15 @@ const IndividualProfile: React.FC<{
               <>
                 {(profile?.data?.additional_skills_checkboxes?.length > 0 ||
                   profile?.data?.additional_skills_manual?.length > 0) && (
-                  <DetailSection title="Special Skills">
+                  <DetailSection title="Special Skills" section="skills">
                     <ProfileFlex>
+                      <SpecialSkills
+                        skills_checkboxes={
+                          profile?.data?.additional_skills_checkboxes
+                        }
+                        skills_manual={profile?.data?.additional_skills_manual}
+                      />
+                      {/*
                       {profile?.data?.additional_skills_checkboxes?.length >
                         0 &&
                         profile?.data?.additional_skills_checkboxes.map(
@@ -1816,6 +1825,7 @@ const IndividualProfile: React.FC<{
                             </Badge>
                           )
                         )}
+                        */}
                     </ProfileFlex>
                   </DetailSection>
                 )}
@@ -1944,7 +1954,7 @@ const IndividualProfile: React.FC<{
             ) : (
               <>
                 {hasNonEmptyValues(profile?.data?.awards) && (
-                  <DetailSection title="Awards & Recognition">
+                  <DetailSection title="Awards & Recognition" section="awards">
                     <ProfileFlex>
                       {profile?.data?.awards.map((award: ProfileAwards) => (
                         <AwardCard

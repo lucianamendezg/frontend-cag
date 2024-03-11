@@ -144,7 +144,7 @@ const CompanyProfile: React.FC<{
 
           {profileData?.description && <Bio>{profileData.description}</Bio>}
 
-          <DetailSection title="Awards & Recognition">
+          <DetailSection title="Awards & Recognition" section="award">
             {awards.map((award, index) => (
               <div key={award.award_id}>
                 <AwardTitle>Award #{index + 1}</AwardTitle>
@@ -171,7 +171,7 @@ const CompanyProfile: React.FC<{
               />
             </div>
           </DetailSection>
-          <DetailSection title="Active Shows">
+          <DetailSection title="Active Shows" section="activeshow">
             {productions?.active?.map((show) => (
               <ActiveProduction key={show.production_id} show={show} />
             ))}
@@ -181,7 +181,7 @@ const CompanyProfile: React.FC<{
             />
           </DetailSection>
           {!!productions?.inactive?.length && (
-            <DetailSection title="Inactive Shows">
+            <DetailSection title="Inactive Shows" section="inactiveshow">
               {productions?.inactive?.map((show) => (
                 <InactiveProduction key={show.production_id} show={show} />
               ))}
