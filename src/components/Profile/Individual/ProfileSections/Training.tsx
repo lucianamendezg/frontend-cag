@@ -4,12 +4,12 @@ import { colors } from '../../../../theme/styleVars';
 import { Container } from 'styled-bootstrap-grid';
 
 const Training: React.FC<{
-  trainingInstitutions: any;
+  institution: string;
+  degree: string;
+  year: string;
   editMode: boolean;
-}> = ({ trainingInstitutions, editMode }) => {
-  const trainingIsEmpty = trainingInstitutions.length == 0 ? true : false;
-  console.log(trainingInstitutions);
-  console.log(editMode);
+}> = ({ institution, degree, year, editMode }) => {
+  const trainingIsEmpty = institution.length == 0 ? true : false;
   return (
     <Container>
       {editMode ? (

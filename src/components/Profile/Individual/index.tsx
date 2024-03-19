@@ -524,7 +524,8 @@ const IndividualProfile: React.FC<{
   const onTrainingFieldChange = <T extends keyof TrainingInstitution>(
     fieldName: T,
     fieldValue: TrainingInstitution[T],
-    id: number
+    id: number,
+    year: string
   ) => {
     const newTrainings = [...(editProfile?.training_institutions || [])];
     const findIndex = newTrainings.findIndex((training) => training.id === id);
@@ -1101,9 +1102,16 @@ const IndividualProfile: React.FC<{
               section="training_institutions"
               setEditMode={SetEditDetailSection}
             >
-              <Training trainingInstitutions={null} editMode={false} />
+              {/*}
+            <Training 
+              institution={profile?.data.training_institution}
+              degree={profile?.data.training_degree}
+              year={profile?.data.training_year}
+              editMode={editMode.training}
+            />
+            */}
+              <div>Hello</div>
             </DetailSection>
-
             {/*
             {editMode['training'] ? (
               <Container>
