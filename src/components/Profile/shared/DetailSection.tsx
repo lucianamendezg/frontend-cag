@@ -9,11 +9,13 @@ const DetailSection: React.FC<{
   title: string;
   section: string;
   children: React.ReactNode;
-}> = ({ title, section, children }) => {
-  const [editMode, setEditMode] = useState(false);
+  setEditMode: any;
+}> = ({ title, section, children, setEditMode }) => {
+  const [editMode, setInternalEditMode] = useState(false);
 
   const editFunction = () => {
-    setEditMode(!editMode);
+    setEditMode(!editMode, section);
+    setInternalEditMode(!editMode);
   };
 
   return (

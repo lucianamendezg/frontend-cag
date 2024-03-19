@@ -211,7 +211,11 @@ const CompanyProfileEdit: React.FC<{
               defaultValue={formValues?.description}
             />
 
-            <DetailSection title="Awards & Recognition" section="award">
+            <DetailSection
+              title="Awards & Recognition"
+              section="award"
+              setEditMode={null}
+            >
               {awards.map((award, index) => (
                 <div key={index} className="mt-3">
                   <div className="d-flex">

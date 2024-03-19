@@ -1,20 +1,40 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Badge } from 'react-bootstrap';
 import { colors } from '../../../../theme/styleVars';
-import { hasNonEmptyValues } from '../../../../utils/hasNonEmptyValues';
 import { Container } from 'styled-bootstrap-grid';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
-const Awards = (awards: any) => {
-  const awardArray = awards.awards;
-  const empty = !hasNonEmptyValues(awardArray);
+const Awards: React.FC<{
+  awards: any;
+  editMode: boolean;
+}> = ({ awards, editMode }) => {
+  const awardsIsEmpty = awards.length == 0 ? true : false;
+
+  const EditVersion = () => {
+    return (
+      <div>
+        {awards.map((award: any) => (
+          <AwardContainer>
+            <Bold>{award.title}</Bold>
+            <Bold>{award.year}</Bold>
+            <FontAwesomeIcon icon={faXmark} />
+          </AwardContainer>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <Container>
-      {empty ? (
+      {editMode ? (
+        <div>
+          <EditVersion />
+        </div>
+      ) : awardsIsEmpty ? (
         <i>Add Awards Recognition</i>
       ) : (
-        awardArray.map((award: any) => (
+        awards.map((award: any) => (
           <AwardContainer>
             <Bold>{award.title}</Bold>
             <Bold>{award.year}</Bold>

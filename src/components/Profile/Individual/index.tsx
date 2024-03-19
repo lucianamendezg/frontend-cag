@@ -55,6 +55,9 @@ import { CAGFormSelect } from '../../SignUp/SignUpStyles';
 import EditPersonalDetails from './EditPersonalDetails';
 import SpecialSkills from './ProfileSections/SpecialSkills';
 import Awards from './ProfileSections/Awards';
+import Features from './ProfileSections/Features';
+import Bio from './ProfileSections/Bio';
+import Training from './ProfileSections/Training';
 
 type PerformanceState = {
   [key: number]: string | number | null | boolean;
@@ -200,6 +203,16 @@ const IndividualProfile: React.FC<{
       return () => unsubscribeAccount();
     }
   }, []); // removing account.ref to save calls to firebase
+
+  const SetEditDetailSection = (
+    editModeVal: boolean,
+    editModeSection: string
+  ) => {
+    setEditMode({
+      ...editMode,
+      [editModeSection]: editModeVal ?? true
+    });
+  };
 
   const onEditModeClick = (
     e: React.MouseEvent<HTMLElement>,
@@ -949,6 +962,7 @@ const IndividualProfile: React.FC<{
             </h2>
             <p>{profile?.data?.pronouns || profile?.data?.pronouns_other}</p>
           </HeaderNamePronouns>
+          {/*
           <a
             href="#"
             onClick={(e: React.MouseEvent<HTMLElement>) =>
@@ -959,6 +973,18 @@ const IndividualProfile: React.FC<{
               icon={editMode['headline'] ? faXmark : faPenToSquare}
             />
           </a>
+          */}
+
+          {/*BIO SECTION*/}
+          <DetailSection
+            title={'Bio'}
+            section={'bio'}
+            setEditMode={SetEditDetailSection}
+          >
+            <Bio bio={profile?.data?.bio} editMode={editMode} />
+          </DetailSection>
+          <div>
+            {/*
           <DetailSection title="Bio" section="headline">
             <div>
               {editMode['headline'] ? (
@@ -1067,8 +1093,18 @@ const IndividualProfile: React.FC<{
               )}
             </div>
           </DetailSection>
+          */}
 
-          <div>
+            {/* TRAINING SECTION */}
+            <DetailSection
+              title="Training"
+              section="training_institutions"
+              setEditMode={SetEditDetailSection}
+            >
+              <Training trainingInstitutions={null} editMode={false} />
+            </DetailSection>
+
+            {/*
             {editMode['training'] ? (
               <Container>
                 {(hasNonEmptyValues(editProfile?.training_institutions)
@@ -1302,7 +1338,7 @@ const IndividualProfile: React.FC<{
                 ) : profile?.data?.training_institution &&
                   profile?.data?.training_institution !== '' ? (
                   <DetailSection title="Training" section="training">
-                    {/* need to support the old single training value profiles - will only update once they edit */}
+                    //need to support the old single training value profiles - will only update once they edit
                     <p>
                       <strong>{profile?.data.training_institution}</strong>
                       <br />
@@ -1327,7 +1363,19 @@ const IndividualProfile: React.FC<{
                 </a>
               </>
             )}
-            {editMode['upcoming'] ? (
+            
+            */}
+            {/*UPCOMING FEATURES SECTION*/}
+            <DetailSection
+              title="Upcoming Features"
+              section="upcoming_performances"
+              setEditMode={SetEditDetailSection}
+            >
+              <Features features={profile?.data.upcoming_performances} />
+            </DetailSection>
+
+            {/*
+            /*{editMode['upcoming'] ? (
               <Container>
                 {editProfile?.upcoming_performances?.map(
                   (upcomingRow: any, i: any) => (
@@ -1714,135 +1762,31 @@ const IndividualProfile: React.FC<{
                 </a>
               </>
             )}
+
+            {/*PAST FEATURES SECTION*/}
+            <DetailSection
+              title="Past Performances"
+              section="past_performances"
+              setEditMode={SetEditDetailSection}
+            >
+              <Features
+                features={profile?.data.past_performances}
+                type="Past"
+              />
+            </DetailSection>
+
             {/*SKILLS EDIT HERE*/}
-            {editMode['skills'] ? (
-              <Container>
-                <Row>
-                  <Col>
-                    <CAGFormGroup>
-                      <BoldP>I am interested in roles that require:</BoldP>
-                      {skillCheckboxes.map((skill) => (
-                        <CAGCheckbox
-                          checked={isAdditionalSkillsCheckboxes(skill)}
-                          fieldType="checkbox"
-                          key={`skill-chk-${skill}`}
-                          label={skill}
-                          name="additionalSkillsCheckboxes"
-                          onChange={(e: any) =>
-                            skillOptionChange(e.currentTarget.checked, skill)
-                          }
-                        />
-                      ))}
-                    </CAGFormGroup>
-                    <CAGFormGroup>
-                      <BoldP>Additional Skills</BoldP>
-                      <CAGInput>
-                        <input
-                          name="additionalSkillsManual"
-                          onChange={(e: any) => {
-                            const { value } = e.target;
-                            setInput(value);
-                          }}
-                          onKeyDown={onKeyDown}
-                          onKeyUp={onKeyUp}
-                          placeholder="Type to add a skill..."
-                          value={input}
-                        />
-                        <button onClick={addTag}>+</button>
-                      </CAGInput>
-                      <CAGContainer>
-                        {skillTags.map((tag, index) => (
-                          <CAGTag key={`${tag}-${index}`}>
-                            <div className="tag">
-                              {tag}
-                              <button onClick={() => deleteTag(index)}>
-                                x
-                              </button>
-                            </div>
-                          </CAGTag>
-                        ))}
-                      </CAGContainer>
-                    </CAGFormGroup>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col lg="12">
-                    <ProfileFlex>
-                      <Button
-                        onClick={updateSkills}
-                        text="Save"
-                        type="button"
-                        variant="primary"
-                      />
-                      <Button
-                        onClick={(e: React.MouseEvent<HTMLElement>) =>
-                          onEditModeClick(e, 'skills', !editMode['skills'])
-                        }
-                        text="Cancel"
-                        type="button"
-                        variant="secondary"
-                      />
-                    </ProfileFlex>
-                  </Col>
-                </Row>
-              </Container>
-            ) : (
-              <>
-                {(profile?.data?.additional_skills_checkboxes?.length > 0 ||
-                  profile?.data?.additional_skills_manual?.length > 0) && (
-                  <DetailSection title="Special Skills" section="skills">
-                    <ProfileFlex>
-                      <SpecialSkills
-                        skills_checkboxes={
-                          profile?.data?.additional_skills_checkboxes
-                        }
-                        skills_manual={profile?.data?.additional_skills_manual}
-                      />
-                      {/*
-                      {profile?.data?.additional_skills_checkboxes?.length >
-                        0 &&
-                        profile?.data?.additional_skills_checkboxes.map(
-                          (skill: string) => (
-                            <Badge
-                              pill
-                              bg="primary"
-                              key={`skills-primary-${skill}`}
-                              text="white"
-                            >
-                              {skill}
-                            </Badge>
-                          )
-                        )}
-                      {profile?.data?.additional_skills_manual?.length > 0 &&
-                        profile?.data?.additional_skills_manual.map(
-                          (skill: string) => (
-                            <Badge
-                              pill
-                              bg="secondary"
-                              key={`skills-manual-${skill}`}
-                              text="white"
-                            >
-                              {skill}
-                            </Badge>
-                          )
-                        )}
-                        */}
-                    </ProfileFlex>
-                  </DetailSection>
-                )}
-                <a
-                  href="#"
-                  onClick={(e: React.MouseEvent<HTMLElement>) =>
-                    onEditModeClick(e, 'skills', !editMode['skills'])
-                  }
-                >
-                  + Add Skills
-                </a>
-              </>
-            )}
+
             {/* AWARD SECTION */}
-            <DetailSection title="Awards & Recognition" section="awards">
-              <Awards awards={profile?.data?.awards} />
+            <DetailSection
+              title="Awards & Recognition"
+              section="awards"
+              setEditMode={SetEditDetailSection}
+            >
+              <Awards
+                awards={profile?.data.awards}
+                editMode={editMode['awards']}
+              />
             </DetailSection>
 
             {/*

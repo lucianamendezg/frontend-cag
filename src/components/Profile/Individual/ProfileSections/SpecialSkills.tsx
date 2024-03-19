@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Badge } from 'react-bootstrap';
 import { colors } from '../../../../theme/styleVars';
 
 const SpecialSkills = (skills_checkboxes: any, skills_manual: any) => {
