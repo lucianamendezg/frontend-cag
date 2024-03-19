@@ -209,6 +209,8 @@ const IndividualProfile: React.FC<{
     editModeVal: boolean,
     editModeSection: string
   ) => {
+    console.log(editModeVal);
+    console.log(editModeSection);
     setEditMode({
       ...editMode,
       [editModeSection]: editModeVal ?? true
@@ -1101,18 +1103,15 @@ const IndividualProfile: React.FC<{
             {/* TRAINING SECTION */}
             <DetailSection
               title="Training"
-              section="training_institutions"
+              section="training"
               setEditMode={SetEditDetailSection}
             >
-              {/*}
-            <Training 
-              institution={profile?.data.training_institution}
-              degree={profile?.data.training_degree}
-              year={profile?.data.training_year}
-              editMode={editMode.training}
-            />
-            */}
-              <div>Hello</div>
+              <Training
+                institution={profile?.data?.training_institution}
+                degree={profile?.data?.training_degree}
+                year={profile?.data?.training_year}
+                editMode={editMode.training}
+              />
             </DetailSection>
             {/*
             {editMode['training'] ? (

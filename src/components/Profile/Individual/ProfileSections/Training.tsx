@@ -9,18 +9,37 @@ const Training: React.FC<{
   year: string;
   editMode: boolean;
 }> = ({ institution, degree, year, editMode }) => {
-  const trainingIsEmpty = institution.length == 0 ? true : false;
   return (
     <Container>
       {editMode ? (
         <i>Edit Mode</i>
-      ) : trainingIsEmpty ? (
-        <i>Add Training</i>
+      ) : institution === undefined ? (
+        <i>Empty</i>
       ) : (
-        <i>Training</i>
+        <div>
+          <DegreeInformation>
+            <Bold>{institution}</Bold>
+            <Bold>{year}</Bold>
+          </DegreeInformation>
+          <Degree>{degree}</Degree>
+        </div>
       )}
     </Container>
   );
 };
+
+const DegreeInformation = styled.div`
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+`;
+
+const Bold = styled.p`
+  font-weight: bolder;
+`;
+
+const Degree = styled.p`
+  font-size: 20px;
+`;
 
 export default Training;
