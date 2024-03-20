@@ -209,8 +209,6 @@ const IndividualProfile: React.FC<{
     editModeVal: boolean,
     editModeSection: string
   ) => {
-    console.log(editModeVal);
-    console.log(editModeSection);
     setEditMode({
       ...editMode,
       [editModeSection]: editModeVal ?? true
@@ -1785,6 +1783,17 @@ const IndividualProfile: React.FC<{
             </DetailSection>
 
             {/*SKILLS EDIT HERE*/}
+            <DetailSection
+              title="Skills"
+              section="skills"
+              setEditMode={SetEditDetailSection}
+            >
+              <SpecialSkills
+                checkboxes={profile?.data?.additional_skills_checkboxes || []}
+                manual={profile?.data?.additional_skills_manual || []}
+                editMode={editMode.skills}
+              />
+            </DetailSection>
 
             {/* AWARD SECTION */}
             <DetailSection
@@ -1793,8 +1802,8 @@ const IndividualProfile: React.FC<{
               setEditMode={SetEditDetailSection}
             >
               <Awards
-                awards={profile?.data.awards}
-                editMode={editMode['awards']}
+                awards={profile?.data?.awards}
+                editMode={editMode.awards}
               />
             </DetailSection>
 

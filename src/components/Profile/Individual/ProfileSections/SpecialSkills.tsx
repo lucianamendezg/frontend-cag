@@ -1,17 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../../theme/styleVars';
+import { Container } from 'styled-bootstrap-grid';
 
-const SpecialSkills = (skills_checkboxes: any, skills_manual: any) => {
-  const primary_skills = skills_checkboxes['skills_checkboxes'];
-  const secondary_skills = skills_checkboxes['skills_manual'];
-  const all_skills = primary_skills.concat(secondary_skills);
+const SpecialSkills: React.FC<{
+  checkboxes: string[];
+  manual: string[];
+  editMode: boolean;
+}> = ({ checkboxes, manual, editMode }) => {
+  const skills = checkboxes.concat(manual);
   return (
     <Flex>
-      {all_skills.length > 0 &&
-        all_skills.map((skill: string) => (
+      {editMode ? (
+        <i>Edit Mode</i>
+      ) : skills.length === 0 ? (
+        <Container>
+          <i>Add Skills</i>
+        </Container>
+      ) : (
+        skills.map((skill: string) => (
           <SkillBadge key={`skills-primary-${skill}`}>{skill}</SkillBadge>
-        ))}
+        ))
+      )}
     </Flex>
   );
 };
