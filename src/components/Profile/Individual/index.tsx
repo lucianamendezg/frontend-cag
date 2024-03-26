@@ -984,7 +984,7 @@ const IndividualProfile: React.FC<{
             section={'bio'}
             setEditMode={SetEditDetailSection}
           >
-            <Bio bio={profile?.data?.bio} editMode={editMode} />
+            <Bio bio={profile?.data?.bio} editMode={editProfile.bio} />
           </DetailSection>
           <div>
             {/*
@@ -1372,15 +1372,6 @@ const IndividualProfile: React.FC<{
             )}
             
             */}
-            {/*UPCOMING FEATURES SECTION*/}
-            <DetailSection
-              title="Upcoming Features"
-              section="upcoming_performances"
-              setEditMode={SetEditDetailSection}
-            >
-              <Features features={profile?.data.upcoming_performances} />
-            </DetailSection>
-
             {/*
             /*{editMode['upcoming'] ? (
               <Container>
@@ -1771,14 +1762,29 @@ const IndividualProfile: React.FC<{
             )}
 
             {/*PAST FEATURES SECTION*/}
+
+            {/*UPCOMING FEATURES SECTION*/}
             <DetailSection
-              title="Past Performances"
-              section="past_performances"
+              title="Upcoming Features"
+              section="upcoming"
               setEditMode={SetEditDetailSection}
             >
               <Features
-                features={profile?.data.past_performances}
-                type="Past"
+                features={profile?.data?.upcoming_performances || []}
+                editMode={editMode.upcoming}
+                emptyPlaceholder={'No Upcoming Features'}
+              />
+            </DetailSection>
+
+            <DetailSection
+              title="Past Performances"
+              section="past"
+              setEditMode={SetEditDetailSection}
+            >
+              <Features
+                features={profile?.data?.past_performances || []}
+                editMode={editMode.past}
+                emptyPlaceholder={'Add Past Performances'}
               />
             </DetailSection>
 

@@ -3,15 +3,18 @@ import styled from 'styled-components';
 import { colors } from '../../../../theme/styleVars';
 import { Container } from 'styled-bootstrap-grid';
 
-const Bio = (bio: any, editMode: boolean) => {
+const Bio: React.FC<{
+  bio: any;
+  editMode: boolean;
+}> = ({ bio, editMode }) => {
   return (
     <Container>
-      {bio.bio === undefined ? (
+      {editMode ? (
+        <i>Edit Mode</i>
+      ) : bio === undefined ? (
         <i>Add a Bio</i>
-      ) : editMode ? (
-        <div>Edit Mode</div>
       ) : (
-        <div>Bio</div>
+        <div>{bio}</div>
       )}
     </Container>
   );

@@ -3,22 +3,39 @@ import Image from 'react-bootstrap';
 import styled from 'styled-components';
 import { colors } from '../../../../theme/styleVars';
 import { Col, Row, Container } from 'react-bootstrap';
-import { hasNonEmptyValues } from '../../../../utils/hasNonEmptyValues';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCamera } from '@fortawesome/free-solid-svg-icons';
 
-const Features = (features: any, type: string) => {
-  const empty = !hasNonEmptyValues(features.features);
+const Features: React.FC<{
+  features: any;
+  editMode: boolean;
+  emptyPlaceholder: string;
+}> = ({ features, editMode, emptyPlaceholder }) => {
+  console.log(features);
   return (
     <Container>
-      {empty ? (
-        <i>Add Features</i>
+      {editMode ? (
+        <i>Edit Mode</i>
+      ) : features.length === 0 ? (
+        <i>{emptyPlaceholder}</i>
       ) : (
         <Row>
-          {features.features.map((feature: any) => (
-            <Col xs={12} md={6}>
+          {features.map((feature: any) => (
+            <Col xs={12} md={4}>
               <FeatureContainer key={feature.id}>
-                <ImageDisplay src={feature.imageUrl} />
+                {feature.imageUrl !== undefined ? (
+                  <ImageDisplay src={feature.imageUrl} />
+                ) : (
+                  <PlaceholderImage>
+                    <FontAwesomeIcon
+                      className="bod-icon"
+                      icon={faCamera}
+                      size="lg"
+                    />
+                  </PlaceholderImage>
+                )}
                 <Text>
-                  <p>{feature.title}</p>
+                  <h5>{feature.title}</h5>
                   <p>{feature.year}</p>
                   <p>{feature.role}</p>
                 </Text>
@@ -32,17 +49,42 @@ const Features = (features: any, type: string) => {
 };
 
 const FeatureContainer = styled.div`
-  margin: 50px 0px 50px 0px;
+  margin: 25px 0px 25px 0px;
 `;
 
 const ImageDisplay = styled.img`
-  height: 225px;
-  width: 150px;
+  height: 150px;
+  width: 100px;
   float: left;
+  background: ${colors.lightGrey};
+  font-size: 68px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  box-shadow: 0 0 8px 4px ${colors.black05a};
+  margin-right: 10px;
+`;
+
+const PlaceholderImage = styled.div`
+  height: 150px;
+  width: 100px;
+  float: left;
+  background: ${colors.lightGrey};
+  color: white;
+  font-size: 32px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 8px;
+  box-shadow: 0 0 8px 4px ${colors.black05a};
+  text-align: center;
+  justify-content: center;
+  margin-right: 10px;
 `;
 
 const Text = styled.div`
-  margin-left: 10px;
+  padding-left: 20px;
 `;
 
 export default Features;
