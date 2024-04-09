@@ -55,6 +55,9 @@ export type Production = {
   open_and_close_end?: string;
   writers?: string;
   roles?: Role[];
+  hiring_director?: string;
+  hiring_director_email?: string;
+  location_of_performance: string;
 };
 
 export type Role = {

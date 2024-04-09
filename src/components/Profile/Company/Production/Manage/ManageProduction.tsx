@@ -43,7 +43,10 @@ const ManageProduction: React.FC<null> = () => {
     casting_director_email: '',
     equity: undefined,
     writers: '',
-    roles: []
+    roles: [],
+    hiring_director: '',
+    hiring_director_email: '',
+    location_of_performance: ''
   });
 
   useEffect(() => {

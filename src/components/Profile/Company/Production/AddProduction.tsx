@@ -49,7 +49,11 @@ const CompanyAddShow: React.FC<{
     casting_director: '',
     casting_director_email: '',
     equity: undefined,
-    roles: []
+    roles: [],
+    writers: '',
+    hiring_director: '',
+    hiring_director_email: '',
+    location_of_performance: ''
   });
   const [showOtherType, setShowOtherType] = useState(false);
 
@@ -98,6 +102,12 @@ const CompanyAddShow: React.FC<{
               onChange={setFormValues}
               defaultValue={formValues?.production_name}
               style={{ marginTop: 0 }}
+            />
+            <FormInput
+              name="written_by"
+              label="Written By"
+              onChange={setFormValues}
+              defaultValue={formValues?.writers}
             />
             <FormRadio
               name="type"
@@ -152,6 +162,18 @@ const CompanyAddShow: React.FC<{
               onChange={setFormValues}
               defaultValue={formValues?.casting_director_email}
             />
+            <FormInput
+              name="hiring_director"
+              label="Hiring Director"
+              onChange={setFormValues}
+              defaultValue={formValues?.hiring_director}
+            />
+            <FormInput
+              name="hiring_director_email"
+              label="Hiring Director Email"
+              onChange={setFormValues}
+              defaultValue={formValues?.hiring_director_email}
+            />
             <FormRadio
               name="equity"
               label="Equity"
@@ -159,7 +181,21 @@ const CompanyAddShow: React.FC<{
               checked={formValues.equity}
               onChange={setFormValues}
             />
+            <FormInput
+              name="location_of_performance"
+              label="Location of Performance"
+              onChange={setFormValues}
+              defaultValue={formValues?.location_of_performance}
+            />
+
             <Section>Important Dates</Section>
+            <FormDateRange
+              name="open_and_close"
+              label="Open & Close"
+              onChange={setFormValues}
+              startValue={formValues?.open_and_close_start}
+              endValue={formValues?.open_and_close_end}
+            />
             <FormDateRange
               name="audition"
               label="Auditions"
@@ -187,13 +223,6 @@ const CompanyAddShow: React.FC<{
               onChange={setFormValues}
               startValue={formValues?.tech_week_start}
               endValue={formValues?.tech_week_end}
-            />
-            <FormDateRange
-              name="open_and_close"
-              label="Open & Close"
-              onChange={setFormValues}
-              startValue={formValues?.open_and_close_start}
-              endValue={formValues?.open_and_close_end}
             />
           </RightCol>
         </Row>
