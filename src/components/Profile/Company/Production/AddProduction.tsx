@@ -63,6 +63,7 @@ const CompanyAddShow: React.FC<{
 
   const handleSubmit = async () => {
     const productionId = uuidv4();
+    console.log(formValues);
     await setDoc(doc(db, 'productions', productionId), {
       ...formValues,
       production_id: productionId
@@ -104,7 +105,7 @@ const CompanyAddShow: React.FC<{
               style={{ marginTop: 0 }}
             />
             <FormInput
-              name="written_by"
+              name="writers"
               label="Written By"
               onChange={setFormValues}
               defaultValue={formValues?.writers}

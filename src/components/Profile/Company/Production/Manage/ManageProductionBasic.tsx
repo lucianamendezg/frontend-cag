@@ -14,7 +14,7 @@ const ManageProductionBasic: React.FC<{
   setFormValues: any;
 }> = ({ formValues, setFormValues }) => {
   const [showOtherType, setShowOtherType] = useState(false);
-
+  console.log(formValues);
   useEffect(() => {
     setShowOtherType(formValues.type === 'Other');
   }, [formValues.type]);
@@ -35,6 +35,12 @@ const ManageProductionBasic: React.FC<{
           onChange={setFormValues}
           defaultValue={formValues?.production_name}
           style={{ marginTop: 0 }}
+        />
+        <FormInput
+          name="writers"
+          label="Written By"
+          onChange={setFormValues}
+          defaultValue={formValues?.writers}
         />
         <FormRadio
           name="type"
@@ -88,6 +94,24 @@ const ManageProductionBasic: React.FC<{
           label="Casting Director Email"
           onChange={setFormValues}
           defaultValue={formValues?.casting_director_email}
+        />
+        <FormInput
+          name="hiring_director"
+          label="Hiring Director"
+          onChange={setFormValues}
+          defaultValue={formValues?.hiring_director}
+        />
+        <FormInput
+          name="hiring_director_email"
+          label="Hiring Director Email"
+          onChange={setFormValues}
+          defaultValue={formValues?.hiring_director_email}
+        />
+        <FormInput
+          name="location_of_performance"
+          label="Location of Performance"
+          onChange={setFormValues}
+          defaultValue={formValues?.location_of_performance}
         />
         <FormRadio
           name="equity"
