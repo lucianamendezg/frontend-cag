@@ -51,6 +51,8 @@ const RoleModal: React.FC<{
     }
   }, []);
 
+  console.log(formValues);
+
   const setFormState = (
     event:
       | React.SyntheticEvent<HTMLInputElement>
@@ -139,7 +141,7 @@ const RoleModal: React.FC<{
                 />
                 <FormTextArea
                   name="description"
-                  label="Bio/Description"
+                  label="Character Description"
                   onChange={setFormState}
                   defaultValue={formValues?.description}
                   rows={6}
