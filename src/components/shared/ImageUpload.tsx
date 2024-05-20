@@ -29,6 +29,7 @@ const ImageUpload: React.FC<ImageUploadModalProps> = ({
   const [percent, setPercent] = useState(0);
   const [imgUrl, setImgUrl] = useState<string | null>(currentImgUrl);
   const [src, setSrc] = useState(null as string | null);
+  const [fileSizeError, setFileSizeError] = useState<string | null>(null);
   const {
     profile: { data }
   } = useProfileContext();
@@ -50,6 +51,16 @@ const ImageUpload: React.FC<ImageUploadModalProps> = ({
     if (e.target.files && e.target.files.length > 0) {
       const reader = new FileReader();
       const file = e.target.files[0];
+
+      // Check file size
+      if (file.size > 5 * 1024 * 1024) {
+        // 5MB in bytes
+        setFileSizeError('File size exceeds 5MB.');
+        return;
+      } else {
+        setFileSizeError(null);
+      }
+
       setFile(file);
       reader.addEventListener('load', () => setSrc(reader.result as string));
       reader.readAsDataURL(file);
@@ -141,6 +152,7 @@ const ImageUpload: React.FC<ImageUploadModalProps> = ({
               hidden
             />
             <ButtonLabel>File size limit: 5MB</ButtonLabel>
+            {fileSizeError && <ErrorLabel>{fileSizeError}</ErrorLabel>}
           </>
         </Col>
         <Col>
@@ -184,6 +196,7 @@ const ImageUpload: React.FC<ImageUploadModalProps> = ({
             hidden
           />
           <ButtonLabel>File size limit: 5MB</ButtonLabel>
+          {fileSizeError && <ErrorLabel>{fileSizeError}</ErrorLabel>}
         </StyledMargin>
         {file && (
           <>
@@ -261,6 +274,11 @@ const StyledRow = styled(Row)`
 `;
 
 const ButtonLabel = styled.p`
+  padding-top: 10px;
+`;
+
+const ErrorLabel = styled.p`
+  color: red;
   padding-top: 10px;
 `;
 
