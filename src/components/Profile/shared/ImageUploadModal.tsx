@@ -9,25 +9,27 @@ interface ImageUploadModalProps {
   onHide: () => void;
   onSave: (imageUrl: string) => void;
   editProfile: any;
-  currentImgUrl: string;
+  currentImgUrl: string | null;
+  title: string;
 }
 
 const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
   show,
   onHide,
   onSave,
-  currentImgUrl
+  currentImgUrl,
+  title
 }) => {
   const [error, setError] = useState('');
-
+  const imgUrl = currentImgUrl ?? '';
   return (
     <Modal show={show} onHide={onHide} backdrop="static">
       <Modal.Header>
-        <Modal.Title>Profile Picture</Modal.Title>
+        <Modal.Title>{title}</Modal.Title>
         <Button onClick={onHide} text="Cancel" type="danger" variant="danger" />
       </Modal.Header>
       {error && <Alert variant="danger">{error}</Alert>}
-      <ImageUpload onSave={onSave} currentImgUrl={currentImgUrl} modal={true} />
+      <ImageUpload onSave={onSave} currentImgUrl={imgUrl} modal={true} />
     </Modal>
   );
 };

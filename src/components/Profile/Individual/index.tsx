@@ -308,6 +308,10 @@ const IndividualProfile: React.FC<{
     }
   };
 
+  const saveFeatureModal = async (pfpImgUrl: string, upcomingId: string) => {
+    console.log(profile);
+  };
+
   const updatePersonalDetails = async () => {
     const {
       age_ranges,
@@ -819,6 +823,7 @@ const IndividualProfile: React.FC<{
             onHide={() => setPfpModalShow(false)}
             onSave={(pfpImgUrl: string) => savePfpUrlModal(pfpImgUrl)}
             currentImgUrl={profile?.data?.profile_image_url}
+            title={'Profile Picture'}
           />
           <p>
             <a
@@ -1322,6 +1327,8 @@ const IndividualProfile: React.FC<{
               </>
             )}
             <hr />
+
+            {/*UPCOMING FEATURES SECTION*/}
             {editMode['upcoming'] ? (
               <Container>
                 {editProfile?.upcoming_performances?.map(
@@ -1346,17 +1353,25 @@ const IndividualProfile: React.FC<{
                             )}
                           </PhotoContainer>
                           <Form.Group className="form-group">
-                            <Form.Label>File size limit: 5MB</Form.Label>
-                            <Form.Control
-                              accept="image/*"
-                              onChange={(e: any) =>
-                                onFileChange(e, upcomingRow.id)
+                            <ImageUploadModal
+                              editProfile={editProfile}
+                              show={pfpModalShow}
+                              onHide={() => setPfpModalShow(false)}
+                              onSave={(pfpImgUrl: string) =>
+                                savePfpUrlModal(pfpImgUrl)
                               }
-                              style={{
-                                padding: 0,
-                                border: 'none'
+                              currentImgUrl={imgUrl[upcomingRow.id]}
+                              title={'Upcoming Feature Poster'}
+                            />
+                            <Form.Label>File size limit: 5MB</Form.Label>
+                            <Button
+                              onClick={(e: React.MouseEvent<HTMLElement>) => {
+                                e.preventDefault();
+                                setPfpModalShow(true);
                               }}
-                              type="file"
+                              text="Upload Picture"
+                              type="button"
+                              variant="secondary"
                             />
                           </Form.Group>
                           <div>
@@ -1510,6 +1525,8 @@ const IndividualProfile: React.FC<{
               </>
             )}
             <hr />
+            {/*PAST PERFORMANCES*/}
+
             {editMode['past'] ? (
               <Container>
                 {editProfile?.past_performances?.map(
