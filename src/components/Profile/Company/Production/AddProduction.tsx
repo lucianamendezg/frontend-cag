@@ -90,6 +90,7 @@ const CompanyAddShow: React.FC<{
         </Row>
         <Row>
           <LeftCol lg={4}>
+            {/* TODO CHANGE PICTURE TO MODAL */}
             <ProductionPhoto
               src={formValues?.production_image_url}
               name="production_image_url"
@@ -109,13 +110,6 @@ const CompanyAddShow: React.FC<{
               label="Written By"
               onChange={setFormValues}
               defaultValue={formValues?.writers}
-            />
-            <FormRadio
-              name="type"
-              label="Type"
-              options={getOptions(productionTypes)}
-              checked={formValues.type}
-              onChange={setFormValues}
             />
             {showOtherType && (
               <FormInput
@@ -145,36 +139,6 @@ const CompanyAddShow: React.FC<{
               onChange={setFormValues}
               defaultValue={formValues?.director}
             />
-            <FormInput
-              name="musical_director"
-              label="Musical Director"
-              onChange={setFormValues}
-              defaultValue={formValues?.musical_director}
-            />
-            <FormInput
-              name="casting_director"
-              label="Casting Director"
-              onChange={setFormValues}
-              defaultValue={formValues?.casting_director}
-            />
-            <FormInput
-              name="casting_director_email"
-              label="Casting Director Email"
-              onChange={setFormValues}
-              defaultValue={formValues?.casting_director_email}
-            />
-            <FormInput
-              name="hiring_director"
-              label="Hiring Director"
-              onChange={setFormValues}
-              defaultValue={formValues?.hiring_director}
-            />
-            <FormInput
-              name="hiring_director_email"
-              label="Hiring Director Email"
-              onChange={setFormValues}
-              defaultValue={formValues?.hiring_director_email}
-            />
             <FormRadio
               name="equity"
               label="Equity"
@@ -189,7 +153,6 @@ const CompanyAddShow: React.FC<{
               defaultValue={formValues?.location_of_performance}
             />
 
-            <Section>Important Dates</Section>
             <FormDateRange
               name="open_and_close"
               label="Open & Close"
@@ -197,33 +160,12 @@ const CompanyAddShow: React.FC<{
               startValue={formValues?.open_and_close_start}
               endValue={formValues?.open_and_close_end}
             />
-            <FormDateRange
-              name="audition"
-              label="Auditions"
+
+            <FormInput
+              name="musical_director"
+              label="Musical Director"
               onChange={setFormValues}
-              startValue={formValues?.audition_start}
-              endValue={formValues?.audition_end}
-            />
-            <FormDateRange
-              name="callback"
-              label="Callbacks"
-              onChange={setFormValues}
-              startValue={formValues?.callback_start}
-              endValue={formValues?.callback_end}
-            />
-            <FormDateRange
-              name="rehearsal"
-              label="Rehearsals"
-              onChange={setFormValues}
-              startValue={formValues?.rehearsal_start}
-              endValue={formValues?.rehearsal_end}
-            />
-            <FormDateRange
-              name="tech_week"
-              label="Tech Week"
-              onChange={setFormValues}
-              startValue={formValues?.tech_week_start}
-              endValue={formValues?.tech_week_end}
+              defaultValue={formValues?.musical_director}
             />
           </RightCol>
         </Row>
