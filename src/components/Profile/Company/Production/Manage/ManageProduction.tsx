@@ -18,6 +18,8 @@ import ManageProductionBasic from './ManageProductionBasic';
 import ManageProductionDates from './ManageProductionDates';
 import ManageProductionMatches from './ManageProductionMatches';
 import ManageProductionRoles from './ManageProductionRoles';
+import ManageAuditionInfo from './ManageAuditionInfo';
+import ManageOffStageInfo from './ManageOffStageInfo';
 import ConfirmDialog from '../../../../ConfirmDialog';
 
 const ManageProduction: React.FC<null> = () => {
@@ -43,7 +45,15 @@ const ManageProduction: React.FC<null> = () => {
     casting_director_email: '',
     equity: undefined,
     writers: '',
-    roles: []
+    roles: [],
+    audition_location: '',
+    contact_person_name_offstage: '',
+    contact_person_email_offstage: '',
+    additional_notes_offstage: '',
+    contact_person_name_audition: '',
+    contact_person_email_audition: '',
+    materials_to_prepare_audition: '',
+    additional_notes_audition: ''
   });
 
   useEffect(() => {
@@ -69,6 +79,8 @@ const ManageProduction: React.FC<null> = () => {
       goToProfile();
     }
   };
+
+  console.log(formValues);
 
   const handleUpdateDocument = async (values: Production) => {
     const docRef = doc(db, 'productions', productionId);
@@ -135,6 +147,22 @@ const ManageProduction: React.FC<null> = () => {
           <Tab eventKey="dates" title="Important Dates">
             <TabRow>
               <ManageProductionDates
+                formValues={formValues}
+                setFormValues={setFormValues}
+              />
+            </TabRow>
+          </Tab>
+          <Tab eventKey="audition" title="Audition Info">
+            <TabRow>
+              <ManageAuditionInfo
+                formValues={formValues}
+                setFormValues={setFormValues}
+              />
+            </TabRow>
+          </Tab>
+          <Tab eventKey="hiring" title="Off-Stage Hiring Info">
+            <TabRow>
+              <ManageOffStageInfo
                 formValues={formValues}
                 setFormValues={setFormValues}
               />

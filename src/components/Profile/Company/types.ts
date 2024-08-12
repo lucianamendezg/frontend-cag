@@ -55,6 +55,14 @@ export type Production = {
   open_and_close_end?: string;
   writers?: string;
   roles?: Role[];
+  audition_location?: string;
+  contact_person_name_offstage?: string;
+  contact_person_email_offstage?: string;
+  additional_notes_offstage?: string;
+  contact_person_name_audition?: string;
+  contact_person_email_audition?: string;
+  materials_to_prepare_audition?: string;
+  additional_notes_audition?: string;
 };
 
 export type Role = {
