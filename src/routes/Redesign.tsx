@@ -3,11 +3,35 @@ import Hero from '/hero.png';
 import Collapsible from '../components/layout/Collapsible';
 import Donate from '/donate.png';
 import { InputField } from '../components/shared';
-//Unique productions square area
-//Donate
-//Newsletter
+import { yellowBlob2, greenBlob } from '../images';
+import { BlobBox } from '../components/layout';
 
 const Redesign = () => {
+  const blobs = [
+    {
+      id: 1,
+      blob: Donate,
+      opacity: 1,
+      transform: 'scale(0.8)',
+      translate: '10vw, -15vh', // Adjusted position
+      zIndex: '1'
+    },
+    {
+      id: 2,
+      blob: yellowBlob2,
+      opacity: 1,
+      transform: 'rotate(100deg) scale(0.5)',
+      translate: '5vw, -40vh' // Adjusted position
+    },
+    {
+      id: 3,
+      blob: greenBlob,
+      opacity: 1,
+      transform: 'rotate(-7deg) scale(0.5)',
+      translate: '0vw, 0vh' // Adjusted position
+    }
+  ];
+
   const sectionTitles = {
     about: 'What is Chicago Artist Guide (CAG)?',
     price: 'Is it Free?',
@@ -113,21 +137,25 @@ const Redesign = () => {
         </div>
       </div>
       {/* Diversify */}
-      <div className="grid grid-cols-1 lg:mx-44 lg:grid-cols-2">
-        <div className="items-center justify-center">
-          <h2 className="text-3xl">
-            Help us diversify the Chicago theater community!
-          </h2>
-          <h3 className="pt-2 text-base leading-loose">
-            Your support of the Chicago Artist Guide helps us offer this
-            platform to our users free of cost.
-          </h3>
-          <button className="mt-4 rounded-full bg-salmon px-14 py-3 text-xl font-semibold text-white hover:bg-blush">
-            Donate
-          </button>
-        </div>
-        <div className="flex items-center justify-center">
-          <img src={Donate} alt="Group of people happily posing" />
+      <div className="bg-white py-12">
+        <div className="flex flex-col items-center lg:mx-44 lg:flex-row">
+          <div className="items-center justify-center lg:w-1/2">
+            <h2 className="text-3xl">
+              Help us diversify the Chicago theater community!
+            </h2>
+            <h3 className="pt-2 text-base leading-loose">
+              Your support of the Chicago Artist Guide helps us offer this
+              platform to our users free of cost.
+            </h3>
+            <a href="https://www.chicagoartistguide.org/donate">
+              <button className="mt-4 rounded-full bg-salmon px-14 py-3 text-xl font-semibold text-white hover:bg-blush">
+                Donate
+              </button>
+            </a>
+          </div>
+          <div className="hidden lg:block lg:w-1/2">
+            <BlobBox blobs={blobs} />
+          </div>
         </div>
       </div>
       {/* Newsletter */}
