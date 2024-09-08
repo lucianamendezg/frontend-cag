@@ -7,28 +7,53 @@ import { yellowBlob2, greenBlob } from '../images';
 import { BlobBox } from '../components/layout';
 
 const Redesign = () => {
-  const blobs = [
+  const lg_blobs = [
     {
       id: 1,
       blob: Donate,
       opacity: 1,
       transform: 'scale(0.8)',
-      translate: '10vw, -15vh', // Adjusted position
+      translate: '10vw, -15vh',
       zIndex: '1'
     },
     {
       id: 2,
       blob: yellowBlob2,
       opacity: 1,
-      transform: 'rotate(100deg) scale(0.5)',
-      translate: '5vw, -40vh' // Adjusted position
+      transform: 'rotate(179deg) scale(0.5)',
+      translate: '20vw, -30vh'
     },
     {
       id: 3,
       blob: greenBlob,
       opacity: 1,
-      transform: 'rotate(-7deg) scale(0.5)',
-      translate: '0vw, 0vh' // Adjusted position
+      transform: 'rotate(-95deg) scale(0.5)',
+      translate: '5vw, -20vh'
+    }
+  ];
+
+  const xl_blobs = [
+    {
+      id: 1,
+      blob: Donate,
+      opacity: 1,
+      transform: 'scale(0.8)',
+      translate: '10vw, -15vh',
+      zIndex: '1'
+    },
+    {
+      id: 2,
+      blob: yellowBlob2,
+      opacity: 1,
+      transform: 'rotate(179deg) scale(0.7)',
+      translate: '17vw, -30vh'
+    },
+    {
+      id: 3,
+      blob: greenBlob,
+      opacity: 1,
+      transform: 'rotate(-95deg) scale(0.7)',
+      translate: '5vw, -20vh'
     }
   ];
 
@@ -90,14 +115,14 @@ const Redesign = () => {
   return (
     <>
       {/* Hero */}
-      <div className="relative">
+      <div className="relative px-2">
         <img
           src={Hero}
           alt="Hero"
           className="absolute inset-0 h-full w-full object-cover"
         />
-        <div className="relative z-10 py-64 pl-44">
-          <h1 className="text-7xl text-white">
+        <div className="relative z-10 py-64 lg:pl-44">
+          <h1 className="text-5xl text-white md:text-7xl">
             Discover your
             <br />
             next dream gig
@@ -117,7 +142,7 @@ const Redesign = () => {
         </div>
       </div>
       {/* FAQ */}
-      <div className="mx-12 my-24 grid grid-cols-1 lg:grid-cols-3">
+      <div className="my-24 grid grid-cols-1 md:mx-12 lg:grid-cols-3">
         <div className="col-span-1 flex items-center justify-center">
           <h1 className="text-black">
             Frequently
@@ -137,8 +162,8 @@ const Redesign = () => {
         </div>
       </div>
       {/* Diversify */}
-      <div className="bg-white py-12">
-        <div className="flex flex-col items-center lg:mx-44 lg:flex-row">
+      <div className="bg-white px-2 py-24">
+        <div className="mx-auto flex max-w-5xl flex-col items-center lg:flex-row">
           <div className="items-center justify-center lg:w-1/2">
             <h2 className="text-3xl">
               Help us diversify the Chicago theater community!
@@ -147,14 +172,19 @@ const Redesign = () => {
               Your support of the Chicago Artist Guide helps us offer this
               platform to our users free of cost.
             </h3>
-            <a href="https://www.chicagoartistguide.org/donate">
-              <button className="mt-4 rounded-full bg-salmon px-14 py-3 text-xl font-semibold text-white hover:bg-blush">
-                Donate
-              </button>
-            </a>
+            <div className="flex justify-center lg:justify-start">
+              <a href="https://www.chicagoartistguide.org/donate">
+                <button className="mt-4 rounded-full bg-salmon px-14 py-3 text-xl font-semibold text-white hover:bg-blush">
+                  Donate
+                </button>
+              </a>
+            </div>
           </div>
-          <div className="hidden lg:block lg:w-1/2">
-            <BlobBox blobs={blobs} />
+          <div className="hidden lg:block lg:w-1/2 xl:hidden">
+            <BlobBox blobs={lg_blobs} />
+          </div>
+          <div className="hidden xl:block xl:w-1/2">
+            <BlobBox blobs={xl_blobs} />
           </div>
         </div>
       </div>
