@@ -49,7 +49,8 @@ export default {
         white: '#ffffff',
         white80a: 'rgba(255, 255, 255, 0.8)',
         yellow: '#EFC93D',
-        yoda: '#B8D8C7'
+        yoda: '#B8D8C7',
+        evergreen: '#4A725D'
       }
     }
   },

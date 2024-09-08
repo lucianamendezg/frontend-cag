@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Hero from '/hero.png';
 import Collapsible from '../components/layout/Collapsible';
 import Donate from '/donate.png';
@@ -63,6 +63,31 @@ const Redesign = () => {
     );
   };
 
+  const [firstName, setFirstName] = useState('');
+  const [email, setEmail] = useState('');
+
+  const handleSubmit = () => {
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action =
+      'https://secure.lglforms.com/form_engine/s/RhWpXILLBg4_95e80UD-IQ';
+    form.target = 'hidden_iframe';
+
+    const firstNameInput = document.createElement('input');
+    firstNameInput.type = 'hidden';
+    firstNameInput.name = 'first_name';
+    firstNameInput.value = firstName;
+    form.appendChild(firstNameInput);
+
+    const emailInput = document.createElement('input');
+    emailInput.type = 'hidden';
+    emailInput.name = 'email';
+    emailInput.value = email;
+    form.appendChild(emailInput);
+
+    document.body.appendChild(form);
+    form.submit();
+  };
   return (
     <>
       {/* Hero */}
@@ -132,13 +157,24 @@ const Redesign = () => {
       </div>
       {/* Newsletter */}
       <div>
-        <h2 className="mt-24 text-center text-2xl text-slate">
+        <h2 className="mt-24 text-center text-2xl text-evergreen">
           Stay up to date with the Chicago Artist Guide’s Newsletter
         </h2>
-        <div className="flex justify-center gap-24">
-          <InputField placeholder="First and Last Name" />
-          <InputField placeholder="Email" />
-          <button className="mt-4 rounded-full bg-mint px-14 py-2 text-xl font-semibold text-white hover:bg-darkGrey">
+        <div className="flex flex-col justify-center px-5 md:flex-row md:gap-x-10 md:px-10">
+          <InputField
+            placeholder="First & Last Name"
+            value={firstName}
+            onChange={(e: any) => setFirstName(e.target.value)}
+          />
+          <InputField
+            placeholder="Email Address"
+            value={email}
+            onChange={(e: any) => setEmail(e.target.value)}
+          />
+          <button
+            className="mt-4 rounded-full bg-mint px-14 py-2 text-xl font-semibold text-white hover:bg-evergreen"
+            onClick={handleSubmit}
+          >
             Keep me posted!
           </button>
         </div>
