@@ -3,9 +3,7 @@ import Hero from '/hero.png';
 import Collapsible from '../components/layout/Collapsible';
 import Donate from '/donate.png';
 import { InputField } from '../components/shared';
-//Unique productions square area
-//Donate
-//Newsletter
+import axios from 'axios';
 
 const Redesign = () => {
   const sectionTitles = {
@@ -63,31 +61,69 @@ const Redesign = () => {
     );
   };
 
-  const [firstName, setFirstName] = useState('');
-  const [email, setEmail] = useState('');
+  const [formData, setFormData] = useState({
+    FNAME: '',
+    LNAME: '',
+    EMAIL: '',
+    groups: {
+      artist: false,
+      theaterStaff: false,
+      supporter: true
+    }
+  });
 
-  const handleSubmit = () => {
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action =
-      'https://secure.lglforms.com/form_engine/s/RhWpXILLBg4_95e80UD-IQ';
-    form.target = 'hidden_iframe';
-
-    const firstNameInput = document.createElement('input');
-    firstNameInput.type = 'hidden';
-    firstNameInput.name = 'first_name';
-    firstNameInput.value = firstName;
-    form.appendChild(firstNameInput);
-
-    const emailInput = document.createElement('input');
-    emailInput.type = 'hidden';
-    emailInput.name = 'email';
-    emailInput.value = email;
-    form.appendChild(emailInput);
-
-    document.body.appendChild(form);
-    form.submit();
+  const handleChange = (e: any) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
   };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    const { FNAME, EMAIL, groups } = formData;
+    const name = formData.FNAME;
+    const spaceIndex = name.indexOf(' ');
+    if (spaceIndex !== -1) {
+      const firstName = name.substring(0, spaceIndex).trim();
+      const lastName = name.substring(spaceIndex + 1).trim();
+      setFormData({
+        ...formData,
+        FNAME: firstName,
+        LNAME: lastName
+      });
+    } else {
+      setFormData({
+        ...formData,
+        LNAME: ''
+      });
+    }
+    try {
+      const form = new FormData();
+      form.append('FNAME', formData.FNAME);
+      form.append('LNAME', formData.LNAME);
+      form.append('EMAIL', formData.EMAIL);
+      form.append('group[24473][1]', formData.groups.artist ? 'on' : '');
+      form.append('group[24473][2]', formData.groups.theaterStaff ? 'on' : '');
+      form.append('group[24473][4]', formData.groups.supporter ? 'on' : '');
+      form.append('b_5259e9388abb929652f950f67_8117d0974f', '');
+
+      const response = await axios.post(
+        'https://chicagoartistguide.us6.list-manage.com/subscribe/post',
+        form,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Access-Control-Allow-Credentials': true
+          }
+        }
+      );
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   return (
     <>
       {/* Hero */}
@@ -157,19 +193,25 @@ const Redesign = () => {
       </div>
       {/* Newsletter */}
       <div>
-        <h2 className="mt-24 text-center text-2xl text-evergreen">
+        <h2 className="mt-24 px-2 text-start text-2xl text-evergreen md:text-center">
           Stay up to date with the Chicago Artist Guide’s Newsletter
         </h2>
         <div className="flex flex-col justify-center px-5 md:flex-row md:gap-x-10 md:px-10">
           <InputField
             placeholder="First & Last Name"
-            value={firstName}
-            onChange={(e: any) => setFirstName(e.target.value)}
+            value={formData.FNAME}
+            id="FNAME"
+            name="FNAME"
+            onChange={handleChange}
+            required
           />
           <InputField
             placeholder="Email Address"
-            value={email}
-            onChange={(e: any) => setEmail(e.target.value)}
+            value={formData.EMAIL}
+            id="EMAIL"
+            name="EMAIL"
+            onChange={handleChange}
+            required
           />
           <button
             className="mt-4 rounded-full bg-mint px-14 py-2 text-xl font-semibold text-white hover:bg-evergreen"
