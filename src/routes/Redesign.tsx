@@ -64,64 +64,60 @@ const Redesign = () => {
   const [formData, setFormData] = useState({
     FNAME: '',
     LNAME: '',
-    EMAIL: '',
-    groups: {
-      artist: false,
-      theaterStaff: false,
-      supporter: true
-    }
+    EMAIL: ''
   });
 
   const handleChange = (e: any) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
       [name]: value
-    }));
+    });
   };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const { FNAME, EMAIL, groups } = formData;
+
     const name = formData.FNAME;
     const spaceIndex = name.indexOf(' ');
+
+    let updatedFormData = { ...formData };
+
     if (spaceIndex !== -1) {
       const firstName = name.substring(0, spaceIndex).trim();
       const lastName = name.substring(spaceIndex + 1).trim();
-      setFormData({
+      updatedFormData = {
         ...formData,
         FNAME: firstName,
         LNAME: lastName
-      });
+      };
     } else {
-      setFormData({
+      updatedFormData = {
         ...formData,
-        LNAME: ''
-      });
+        LNAME: name
+      };
     }
-    try {
-      const form = new FormData();
-      form.append('FNAME', formData.FNAME);
-      form.append('LNAME', formData.LNAME);
-      form.append('EMAIL', formData.EMAIL);
-      form.append('group[24473][1]', formData.groups.artist ? 'on' : '');
-      form.append('group[24473][2]', formData.groups.theaterStaff ? 'on' : '');
-      form.append('group[24473][4]', formData.groups.supporter ? 'on' : '');
-      form.append('b_5259e9388abb929652f950f67_8117d0974f', '');
 
-      const response = await axios.post(
-        'https://chicagoartistguide.us6.list-manage.com/subscribe/post',
-        form,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            'Access-Control-Allow-Credentials': true
-          }
-        }
+    setFormData(updatedFormData);
+
+    const form = e.target;
+    const url = new URL(
+      'https://chicagoartistguide.us6.list-manage.com/subscribe/post'
+    );
+    url.searchParams.append('u', '5259e9388abb929652f950f67');
+    url.searchParams.append('id', '8117d0974f');
+
+    Object.keys(updatedFormData).forEach((key) => {
+      url.searchParams.append(
+        key,
+        updatedFormData[key as keyof typeof updatedFormData]
       );
-    } catch (error) {
-      console.error('Error:', error);
-    }
+    });
+    console.log('This works');
+
+    form.action = url.toString();
+    form.method = 'POST';
+    form.submit();
   };
 
   return (
@@ -196,7 +192,10 @@ const Redesign = () => {
         <h2 className="mt-24 px-2 text-start text-2xl text-evergreen md:text-center">
           Stay up to date with the Chicago Artist Guide’s Newsletter
         </h2>
-        <div className="flex flex-col justify-center px-5 md:flex-row md:gap-x-10 md:px-10">
+        <form
+          onSubmit={(e) => handleSubmit(e)}
+          className="flex flex-col justify-center px-5 md:flex-row md:gap-x-10 md:px-10"
+        >
           <InputField
             placeholder="First & Last Name"
             value={formData.FNAME}
@@ -214,12 +213,13 @@ const Redesign = () => {
             required
           />
           <button
+            type="submit"
             className="mt-4 rounded-full bg-mint px-14 py-2 text-xl font-semibold text-white hover:bg-evergreen"
-            onClick={handleSubmit}
+            name="btnSubmit"
           >
             Keep me posted!
           </button>
-        </div>
+        </form>
       </div>
     </>
   );
