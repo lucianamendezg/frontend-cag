@@ -18,7 +18,7 @@ export const MatchesPageContainer = () => {
   }, [account]);
 
   return (
-    <div className="flex gap-6 pt-3 xl:gap-12">
+    <div className="flex gap-12 pt-3">
       {accountType !== null ? (
         <>
           <div className="flex-none">
@@ -28,7 +28,7 @@ export const MatchesPageContainer = () => {
               <TalentMatchesFilterBar />
             )}
           </div>
-          <div className="flex-initial">
+          <div className="flex-1">
             {accountType === 'individual' ? (
               <CompanyMatchList />
             ) : (
